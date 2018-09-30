@@ -18,31 +18,44 @@
 #include <iostream>
 #include <string>
 #include <random>
-void game(int level, int number);
-/*void game(int level,int number)
+
+int startGame();
+
+int game(int level,int number)
 {
     for (int iii=0; iii<level; ++iii)
     {
-        std::cout << "Guess #" << iii+1 << ": ";
+        std::cout << "\nGuess #" << iii+1 << ": ";
         int playerGuess;
         std::cin >> playerGuess;
-        
+        if (playerGuess == number)
+        {
+            std::cout << "\nCorrect!\n";
+            return startGame();
+        }
+        else if (playerGuess >= number)
+            std::cout << "Your guess was too high";
+        else
+            std::cout << "Your guess was too low";
     }
-}*/
+    std::cout << "\n\nYou took too many guesses.\nThe number was: " << number;
+    return startGame();
+}
 
 
 
-void startGame() //cleared
+int startGame() //cleared
 {
     int level=7;
     std::mt19937 mersenne(static_cast<unsigned int>(time(nullptr)));
     std::uniform_int_distribution<> die(1, 100);
     int numb = die(mersenne);
-    std::cout << "Do you want to play a game? (y/n)? ";
+    std::cout << "\n\nDo you want to play a game? (y/n)? ";
     std::string response;
     std::cin >> response;
     if (response == "y")
-        game(level,numb);
+        return game(level,numb);
+    return 0;
 }
 
 int main()
