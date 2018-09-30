@@ -21,13 +21,27 @@
 
 int startGame();
 
+int getInput(int rep)
+{
+    std::cout << "\nGuess #" << rep+1 << ": ";
+    int guess;
+    std::cin >> guess;
+    std::cin.clear();
+    std::cin.ignore(32767,'\n');
+    if (std::cin.fail())
+    {
+        std::cout << "Invalid guess";
+        return getInput(rep);
+    }
+
+    return guess;
+}
+
 int game(int level,int number)
 {
     for (int iii=0; iii<level; ++iii)
     {
-        std::cout << "\nGuess #" << iii+1 << ": ";
-        int playerGuess;
-        std::cin >> playerGuess;
+        int playerGuess = getInput(iii);
         if (playerGuess == number)
         {
             std::cout << "\nCorrect!\n";
